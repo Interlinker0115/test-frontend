@@ -6,6 +6,10 @@ import axios from "axios"
 import Loader from "../loader/Loader"
 import { useAtom } from "jotai"
 import { credtiAtom, EditViewAtom, logicCheckAtom } from "@/store"
+import { ToastContainer, toast } from "react-toastify"
+// import 'react-toastify/dist/ReactToastify.css';
+import { light } from "@mui/material/styles/createPalette"
+import "./upload.css"
 
 const Upload = ({ username }) => {
 
@@ -16,7 +20,7 @@ const Upload = ({ username }) => {
     const [editView, setEditView] = useAtom(EditViewAtom)
     const [, setLogicCheck] = useAtom(logicCheckAtom)
     const [credit, setCredit] = useAtom(credtiAtom)
-
+    const [confirmShow, setConfirmShow] = useState(true)
     const handleChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -107,10 +111,37 @@ const Upload = ({ username }) => {
             //     body: JSON.stringify({ username, newCredit })
             // })
             setCredit(credit - 1)
+            setConfirmShow(!confirmShow)
         } else {
-            alert("Your credit is not enough")
+            // alert("Your credit is not enough")
+            toast.error("Credit is not enough for you. Plz buy new credit using 'buy credit' button", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: light,
+                style: {
+                    backgroundColor: '#f44336', // Custom background color (red)
+                    color: '#ffffff', // Custom text color (white)
+                    borderRadius: '5px', // Optional: rounded corners
+                    padding: '20px', // Optional: padding
+                },
+            })
         }
     };
+    const customStyles = `
+    .Toastify__progress-bar--error {
+        background-color: #fff; /* Custom progress bar color (orange) */
+    }
+`;
+
+    // Append custom styles to the document head
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = customStyles;
+    document.head.appendChild(styleSheet);
 
     return (
         <>
@@ -121,7 +152,13 @@ const Upload = ({ username }) => {
                     <div className="mt-[10px] flex items-center justify-center w-[160px] h-[160px] rounded-full bg-[#0D6EFD] bg-opacity-10">
                         <div className=" relative flex justify-center items-center w-[110px] h-[110px] rounded-full bg-[#0D6EFD] bg-opacity-30">
                             <input id="file" type="file" className=" absolute top-0 lef-0  w-full h-full hidden" onChange={handleChange} onClick={() => { localStorage.setItem('url', ""); }} />
-                            <label htmlFor="file">
+                            <label htmlFor="file" className="absolute z-20">
+                                <Image
+                                    src={require("../../../../public/plus.webp")}
+                                    alt="plus"
+                                    className=" rounded-full w-[68px] h-[68px]"
+                                /></label>
+                            <label htmlFor="file" className={`absolute ${!filename && "animate-ping duration-200"}`}>
                                 <Image
                                     src={require("../../../../public/plus.webp")}
                                     alt="plus"
@@ -133,6 +170,7 @@ const Upload = ({ username }) => {
                     </div>
                     <div className="mt-[10px] text-[24px] sm:text-[28px] md:text-[36px] font-bold text-center">Upload File</div>
                 </div>
+                <ToastContainer />
                 {filename && (
                     <div className="file-name mt-[20px] flex justify-between gap-4 sm:gap-8 md:gap-14 items-center">
                         <div className="text-[18px] font-bold">Uploaded File:<span className="text-[#0D6EFD] ml-[5px]">{filename}</span> </div>
@@ -144,19 +182,28 @@ const Upload = ({ username }) => {
                                 alt="remove"
                             />
                         </button>
-                        <button onClick={handleConfirm}>
+                        <button onClick={handleConfirm} className=" relative">
                             <Image
                                 src="/confirm.webp"
                                 width={30}
                                 height={30}
                                 alt="remove"
+                                className={`${confirmShow && "animate-ping"}`}
+                            />
+                            <Image
+                                src="/confirm.webp"
+                                width={30}
+                                height={30}
+                                alt="remove"
+                                className="absolute top-0 left-0"
                             />
                         </button>
                     </div>
                 )}
-                <button className="mt-[30px] mb-[20px] w-[180px] sm:w-[200px] md:w-[240px] h-[44px] sm:h-[48px] md:h-[54px] bg-[#0D6EFD] text-[16px] sm:text-[18px] md:text-[20px] text-white text-bold rounded-full" onClick={handleClick}>Edit file</button>
-            </div>
-            {loaderShow && <Loader />}
+                <button className="relative mt-[30px] mb-[20px] w-[180px] sm:w-[200px] md:w-[240px] h-[44px] sm:h-[48px] md:h-[54px] bg-[#0D6EFD] text-[16px] sm:text-[18px] md:text-[20px] text-white text-bold rounded-full z-10" onClick={handleClick}>Edit file<div className={`w-[180px] sm:w-[200px] md:w-[240px] h-[44px] sm:h-[48px] md:h-[54px] bg-[#0D6EFD] text-[16px] sm:text-[18px] md:text-[20px] text-white text-bold rounded-full absolute top-0 left-0 flex items-center justify-center ${!confirmShow && "custom-ping"}`}>{confirmShow && "Edit file"}</div></button>
+            </div >
+            {loaderShow && <Loader />
+            }
         </>
     )
 }

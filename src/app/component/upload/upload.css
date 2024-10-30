@@ -1,0 +1,20 @@
+@keyframes custom-ping {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        /* background-color: red; */
+    }
+
+    100% {
+        transform: scale(1.5);
+        /* Adjust scale here */
+        opacity: 0.1;
+        /* background-color: blue; */
+        
+    }
+}
+
+.custom-ping {
+    animation: custom-ping 1s infinite;
+    /* Adjust duration as needed */
+}
