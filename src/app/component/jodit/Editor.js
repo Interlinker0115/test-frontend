@@ -45,7 +45,7 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
       setConfig(
         {
           readonly: false,
-          placeholder: 'Edite aquí su contenido!',
+          placeholder: 'Edit your content here!',
           defaultActionOnPaste: 'insert_as_html',
           defaultLineHeight: 1.5,
           enter: 'p',
@@ -85,7 +85,7 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
             // delete block button
             {
               name: 'deleteBlock',
-              tooltip: 'Borrar bloque',
+              tooltip: 'Delete block',
               icon: 'bin',
               exec: () => {
                 if (editorContent && editorContent.parentNode) {
@@ -161,7 +161,7 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
       module.Jodit.defaultOptions.controls.customParagraph = {
         tooltip: 'Select the type of the block',
         icon: 'paragraph',
-        list: ['Título 1', 'Título 2', 'Título 3', 'Cuerpo', 'Texto recuadro', 'Título de Tabla/Figura', 'Nota de Tabla/Figura', 'Fórmula centrada'],
+        list: ['Title 1', 'Title 2', 'Title 3', 'Body', 'Boxed text', 'Table/Figure Title', 'Table/Figure Note', 'Centered formula'],
 
         childTemplate: (editor, key, value) =>
           `<span class="${key}">${editor.i18n(value)}</span>`,
@@ -169,44 +169,44 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
         exec(editor, _, { control }) {
           let value = control.args && control.args[0]; // h1, h2 ...
           // change div tag to h2 tag
-          if (value == 'Título 1') {
+          if (value == 'Title 1') {
             const tempElement = document.createElement('h2');
             tempElement.innerHTML = editorContent.innerHTML.toUpperCase();
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Título 2') {
+          else if (value == 'Title 2') {
             const tempElement = document.createElement('h3');
             tempElement.innerHTML = editorContent.innerHTML;
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Título 3') {
+          else if (value == 'Title 3') {
             const tempElement = document.createElement('h4');
             tempElement.innerHTML = editorContent.innerHTML;
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Cuerpo') {
+          else if (value == 'Body') {
             const tempElement = document.createElement('div');
             tempElement.innerHTML = editorContent.innerHTML;
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Texto recuadro') {
+          else if (value == 'Boxed text') {
             const tempElement = document.createElement('blockquote');
             tempElement.innerHTML = editorContent.innerHTML;
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Título de Tabla/Figura') {
+          else if (value == 'Table/Figure Title') {
             const tempElement = document.createElement('div');
             tempElement.style.cssText = 'text-align: center;';
             tempElement.innerHTML = editorContent.innerHTML;
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Nota de Tabla/Figura') {
+          else if (value == 'Table/Figure Note') {
             const tempElement = document.createElement('div');
             tempElement.style.cssText = 'font-size: 0.9rem; text-align: justify;'
             tempElement.classList.add('footnote');
@@ -214,7 +214,7 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
             editorContent.parentNode.replaceChild(tempElement, editorContent);
             setEditorContent(tempElement);
           }
-          else if (value == 'Fórmula centrada') {
+          else if (value == 'Centered formula') {
             const tempElement = document.createElement('div');
             tempElement.style.cssText = 'text-align: center;';
             tempElement.innerHTML = editorContent.innerHTML;
@@ -226,7 +226,7 @@ const Editor = ({ editorContent, setEditorContent, changedContent, setChangedCon
       };
       // Create insert tooltip button
       module.Jodit.defaultOptions.controls.insertTooltip = {
-        tooltip: 'Insertar Nota',
+        tooltip: 'Insert Note',
         icon: 'tooltip',
         popup: (editor, current, self, close) => {
           const selectedText = window.getSelection()?.toString();

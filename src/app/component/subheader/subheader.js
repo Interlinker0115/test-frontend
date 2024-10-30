@@ -53,7 +53,7 @@ const SubHeader = ({ username }) => {
                     {/* <div className="hidden lg:block">
                         <Button variant="contained" sx={{ borderRadius: "100px", backgroundColor: "#0D6EFD", color: "white", width: "154px", height: "54px", display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}><span className="text-[16px]">credit:</span><span className="text-[24px]">2</span></Button>
                     </div> */}
-                    <button className="flex justify-center items-center gap-5 bg-[#0D6EFD] rounded-[8px] w-[154px] h-[54px]"><span className="text-[20px] text-white">credit:</span><span className="text-[28px] text-white font-bold">{credit}</span></button>
+                    <button className="flex justify-center items-center gap-5 bg-[#59b40d] rounded-[100px] w-[154px] h-[54px]"><span className="text-[20px] text-white">credit:</span><span className="text-[28px] text-white font-bold">{credit}</span></button>
                     <div className="hidden lg:block">
                         <Button variant="contained" sx={{ borderRadius: "100px", backgroundColor: "#0D6EFD", color: "white", width: "154px", height: "54px" }} onClick={() => router.push("/payment/pay")}>buy credit</Button>
                     </div>

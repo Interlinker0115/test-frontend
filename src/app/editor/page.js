@@ -12,7 +12,7 @@ const EditPanel = () => {
     // once the value of Editor is changed, it is set as editor's HTML string
     const [changedContent, setChangedContent] = useState("");
     // section title of the edited content. set from preview IFrame
-    const [section, setSection] = useState("Sección Título");
+    const [section, setSection] = useState("Section Title");
 
     const [editView, setEditView] = useAtom(EditViewAtom)
     const [monograColor, setMonograColor] = useState(false)
